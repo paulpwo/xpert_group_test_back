@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/breeds")
+@RequestMapping("/api/breeds")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Cat Breeds", description = "Endpoints para gestionar razas de gatos")

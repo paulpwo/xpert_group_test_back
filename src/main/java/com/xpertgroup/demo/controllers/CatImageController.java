@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/images")
+@RequestMapping("/api/images")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Cat Images", description = "Endpoints para gestionar imágenes de gatos")

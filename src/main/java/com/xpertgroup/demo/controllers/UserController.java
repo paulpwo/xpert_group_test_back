@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.xpertgroup.demo.dtos.LoginResponseDto;
 import com.xpertgroup.demo.dtos.UserDto;
 import com.xpertgroup.demo.ports.in.UserUseCase;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,14 +27,14 @@ public class UserController {
     private final UserUseCase userUseCase;
 
     @GetMapping("/login")
-    @Operation(summary = "User login", description = "Authenticate user with email and password")
+    @Operation(summary = "User login", description = "Authenticate user with email and password, returns JWT token")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Login successful"),
         @ApiResponse(responseCode = "401", description = "Invalid credentials"),
         @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    public ResponseEntity<UserDto> login(
-            @Parameter(description = "User email", example = "john.doe@example.com")
+    public ResponseEntity<LoginResponseDto> login(
+            @Parameter(description = "User email", example = "paulpwo@gmail.com")
             @RequestParam String email,
             @Parameter(description = "User password", example = "password123")
             @RequestParam String password) {
@@ -41,10 +42,10 @@ public class UserController {
         log.info("Login attempt for user: {}", email);
         
         try {
-            Optional<UserDto> user = userUseCase.login(email, password);
-            if (user.isPresent()) {
+            Optional<LoginResponseDto> loginResponse = userUseCase.login(email, password);
+            if (loginResponse.isPresent()) {
                 log.info("Login successful for user: {}", email);
-                return ResponseEntity.ok(user.get());
+                return ResponseEntity.ok(loginResponse.get());
             } else {
                 log.warn("Login failed for user: {}", email);
                 return ResponseEntity.status(401).build();
@@ -63,7 +64,7 @@ public class UserController {
         @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     public ResponseEntity<UserDto> register(
-            @Parameter(description = "User email", example = "john.doe@example.com")
+            @Parameter(description = "User email", example = "paulpwo@gmail.com")
             @RequestParam String email,
             @Parameter(description = "User password", example = "password123")
             @RequestParam String password) {

@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Cat Breeds", description = "Endpoints para gestionar razas de gatos")
+@SecurityRequirement(name = "bearerAuth")
 public class CatBreedController {
 
     private final CatBreedUseCase catBreedUseCase;
@@ -37,6 +39,7 @@ public class CatBreedController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de razas obtenida exitosamente",
                     content = @Content(schema = @Schema(implementation = CatBreedDto.class))),
+            @ApiResponse(responseCode = "401", description = "No autorizado - Token JWT requerido"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<CatBreedDto>> getAllBreeds() {
@@ -53,6 +56,7 @@ public class CatBreedController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Raza encontrada exitosamente",
                     content = @Content(schema = @Schema(implementation = CatBreedDto.class))),
+            @ApiResponse(responseCode = "401", description = "No autorizado - Token JWT requerido"),
             @ApiResponse(responseCode = "404", description = "Raza no encontrada"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
@@ -73,6 +77,7 @@ public class CatBreedController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Búsqueda realizada exitosamente",
                     content = @Content(schema = @Schema(implementation = CatBreedDto.class))),
+            @ApiResponse(responseCode = "401", description = "No autorizado - Token JWT requerido"),
             @ApiResponse(responseCode = "400", description = "Parámetro de búsqueda requerido"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })

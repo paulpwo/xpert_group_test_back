@@ -18,14 +18,6 @@ public class TestController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<Map<String, String>> test() {
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Test endpoint working!");
-        response.put("status", "OK");
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/health-simple")
     public ResponseEntity<Map<String, String>> healthSimple() {
         Map<String, String> response = new HashMap<>();

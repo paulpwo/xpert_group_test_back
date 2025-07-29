@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "Información de un usuario")
 public class UserDto {
-    @Schema(description = "Email del usuario", example = "john.doe@example.com")
+    @Schema(description = "Email del usuario", example = "paulpwo@gmail.com")
     private String email;
     @Schema(description = "Contraseña del usuario", example = "password123")
     private String password;

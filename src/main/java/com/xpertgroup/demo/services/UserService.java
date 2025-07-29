@@ -3,6 +3,7 @@ package com.xpertgroup.demo.services;
 import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.xpertgroup.demo.dtos.LoginResponseDto;
 import com.xpertgroup.demo.dtos.UserDto;
 import com.xpertgroup.demo.entities.User;
 import com.xpertgroup.demo.ports.in.UserUseCase;
@@ -17,15 +18,27 @@ public class UserService implements UserUseCase {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     @Override
-    public Optional<UserDto> login(String email, String password) {
+    public Optional<LoginResponseDto> login(String email, String password) {
         log.info("Attempting login for user: {}", email);
         try {
             Optional<User> user = userRepository.findByEmail(email);
             if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
                 log.info("Login successful for user: {}", email);
-                return Optional.of(mapToDto(user.get()));
+                
+                String token = jwtService.generateToken(user.get());
+                UserDto userDto = mapToDto(user.get());
+                
+                LoginResponseDto loginResponse = LoginResponseDto.builder()
+                        .token(token)
+                        .tokenType("Bearer")
+                        .expiresIn(jwtService.getExpirationTime())
+                        .user(userDto)
+                        .build();
+                
+                return Optional.of(loginResponse);
             } else {
                 log.warn("Login failed for user: {}", email);
                 return Optional.empty();

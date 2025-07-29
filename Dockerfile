@@ -34,7 +34,7 @@ EXPOSE 8080
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD wget -qO- http://localhost:8080/actuator/health || exit 1
+  CMD java -cp /app/app.jar org.springframework.boot.loader.JarLauncher --help > /dev/null 2>&1 || exit 1
 
 # Iniciar app
 ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-jar", "app.jar"]

@@ -57,6 +57,17 @@ src/main/java/com/xpertgroup/demo/
 2. **GET /images/{imageId}** - Obtiene una imagen específica por ID
 3. **GET /images/search?q={query}** - Busca imágenes por término
 
+### Controlador de Usuarios (`/api/users`)
+
+1. **GET /api/users/login?email={email}&password={password}** - Autentica un usuario
+2. **GET /api/users/register?email={email}&password={password}** - Registra un nuevo usuario
+
+#### Características de Autenticación
+
+- ✅ **Encriptación de contraseñas** usando BCrypt
+- ✅ **Validación de usuarios existentes** en registro
+- ✅ **Verificación de credenciales** en login
+
 ## Documentación de la API
 
 ### Swagger UI
@@ -141,6 +152,7 @@ El proyecto utiliza las siguientes configuraciones en `application.properties`:
 
 - **Spring Boot**
 - **Spring MVC** (para programación síncrona)
+- **Spring Security** (para autenticación y encriptación)
 - **RestTemplate** (para llamadas HTTP síncronas)
 - **H2 Database** (base de datos en memoria)
 - **Lombok** (para reducir código boilerplate)

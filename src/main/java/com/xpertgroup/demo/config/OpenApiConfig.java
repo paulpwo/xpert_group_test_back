@@ -20,7 +20,10 @@ public class OpenApiConfig {
                 .servers(List.of(
                         new Server()
                                 .url("http://localhost:8080")
-                                .description("Servidor de desarrollo")
+                                .description("Servidor de desarrollo"),
+                        new Server()
+                                .url("https://xpertgrouptestback-production.up.railway.app/")
+                                .description("Servidor de producción")
                 ));
     }
 }
